@@ -30,6 +30,14 @@ module ConnectFour =
             | Yellow -> "Yellow"
         nodeString
 
+    let getNodeColour (g:Game) row col =
+        let nodeColour =
+            match g.getNode row col with
+            | Empty -> ConsoleColor.White
+            | Red -> ConsoleColor.Red
+            | Yellow -> ConsoleColor.Yellow
+        nodeColour
+
     let updateGame (g:Game) (piece:Node) row col =
         g.setNode piece row col
         g
@@ -57,10 +65,30 @@ module ConnectFour =
         let row = (getNextEmptyRow g false 5 col)
         updateGame g piece row col
 
+    let cprintf c fmt = 
+        Printf.kprintf
+            (fun s ->
+                let old = System.Console.ForegroundColor
+                try
+                  System.Console.ForegroundColor <- c;
+                  System.Console.Write s
+                finally
+                  System.Console.ForegroundColor <- old)
+            fmt
+
+    let cprintfn c fmt =
+        cprintf c fmt
+        printfn ""
+
+    let stringWithSpace str = 
+        sprintf "%s " str
+
     let printGame (g:Game) =
-        for row in 0 .. 5 do
-            for col in 0 .. 6 do
-                printf "row %i col %i has %s node\n" row col (getNodeString g row col)
+        for row = 5 downto 0 do
+            for col = 0 to 6 do
+                cprintf (getNodeColour g row col) "%s " (getNodeString g row col)
+            printf "\n"
+
 
  
 
