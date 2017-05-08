@@ -76,17 +76,13 @@ module ConnectFour =
                   System.Console.ForegroundColor <- old)
             fmt
 
-    let cprintfn c fmt =
-        cprintf c fmt
-        printfn ""
-
-    let stringWithSpace str = 
-        sprintf "%s " str
-
     let printGame (g:Game) =
+        printf "\n"
         for row = 5 downto 0 do
             for col = 0 to 6 do
-                cprintf (getNodeColour g row col) "%s " (getNodeString g row col)
+                let colour = getNodeColour g row col
+                let string = getNodeString g row col
+                cprintf colour " O "
             printf "\n"
 
 
