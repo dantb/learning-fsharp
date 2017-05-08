@@ -23,7 +23,22 @@ let main argv =
 
     Console.ReadKey() |> ignore
 
-    ConnectFour.printGame |> ignore
+    let game = new ConnectFour.Game()
+    ConnectFour.printGame game 
+
+    Console.ReadKey() |> ignore
+
+    ConnectFour.dropPiece game ConnectFour.getRed 2
+
+    Console.ReadKey() |> ignore
+
+    ConnectFour.printGame game
+
+    ConnectFour.dropPiece game ConnectFour.getYellow 2
+
+    Console.ReadKey() |> ignore
+
+    ConnectFour.printGame game
 
     Console.ReadKey() |> ignore
     0 // return an integer exit code
